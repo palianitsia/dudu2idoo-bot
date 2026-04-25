@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:;">
+    <title>Dudu2idoo Bot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- AREA TRASCINABILE per spostare la finestra -->
+    <div class="drag-area"></div>
+
+    <!-- PULSANTI FINESTRA (in alto a destra) -->
+    <div class="window-controls-top">
+        <button id="minimizeBtn" class="win-top-btn">─</button>
+        <button id="closeBtn" class="win-top-btn">✕</button>
+    </div>
+
+    <div class="app-container">
+        <!-- Schermata Login -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-card">
+                <div class="logo">
+                    <h1>Dudu2idoo Mobile</h1>
+                    <p>🤖 Il tuo assistente personale</p>
+                </div>
+                
+                <div class="domain-selector">
+                    <label class="radio-label">
+                        <input type="radio" name="domain" value="it" checked> it.bidoo.com
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="domain" value="es"> es.bidoo.com
+                    </label>
+                </div>
+                
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email" class="input-field">
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Password" class="input-field">
+                </div>
+                
+                <button id="loginBtn" class="btn btn-primary btn-large">ACCEDI</button>
+                
+                <div id="loginStatus" class="status-message"></div>
+            </div>
+            
+            <button id="showFaqBtn" class="faq-btn">
+                <span>❓</span> FAQ & Privacy
+            </button>
+        </div>
+        
+        <!-- Schermata Principale -->
+        <div id="mainScreen" class="screen">
+            <!-- Header Utente -->
+            <div class="user-card">
+                <div class="user-info">
+                    <span class="username" id="username">Loading...</span>
+                </div>
+                <div class="stats-row">
+                    <div class="stat">
+                        <span class="stat-label">Saldo</span>
+                        <span class="stat-value" id="saldo">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Puntate usate</span>
+                        <span class="stat-value" id="usate">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card Prodotto -->
+            <div class="product-card">
+                <div class="product-image" id="productImage">
+                    <div class="product-placeholder">📦</div>
+                </div>
+                <div class="product-name" id="productName">Inserisci ID asta</div>
+            </div>
+            
+            <!-- Card Storico -->
+            <div class="history-card">
+                <div class="history-header">
+                    <span>Prezzo</span>
+                    <span>Modalità</span>
+                    <span>Orario</span>
+                    <span>Vincitore</span>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="history-empty">Nessuna offerta</div>
+                </div>
+            </div>
+            
+            <!-- Timer Progressivo -->
+            <div class="timer-card">
+                <canvas id="timerCanvas" width="150" height="150"></canvas>
+                <div class="timer-status" id="timerStatus"></div>
+                <div class="timer-value" id="timerValue">00</div>
+            </div>
+            
+            <!-- Controlli -->
+            <div class="controls-card">
+                <div class="input-group">
+                    <input type="text" id="auctionId" placeholder="ID Asta" class="input-field">
+                </div>
+                
+                <div class="slider-container">
+                    <span class="slider-label-left">12</span>
+                    <input type="range" id="triggerSlider" min="0" max="12" step="1" value="3">
+                    <span class="slider-label-right">0</span>
+                </div>
+                <div class="slider-value-display">Punta quando il timer è a: <span id="sliderValue">3</span> secondi</div>
+                
+                <!-- Range Prezzo Min/Max -->
+                <div class="price-range-container">
+                    <div class="range-row">
+                        <div class="range-field">
+                            <label>Prezzo Min (€)</label>
+                            <input type="number" id="minPrice" class="input-field range-input" placeholder="0" value="0" step="0.01" min="0">
+                        </div>
+                        <div class="range-field">
+                            <label>Prezzo Max (€)</label>
+                            <input type="number" id="maxPrice" class="input-field range-input" placeholder="0" value="0" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="range-hint" id="rangeHint">
+                        <small>0 = nessun limite</small>
+                    </div>
+                </div>
+                
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="bidMode" value="manual" checked> Puntata Manuale
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="bidMode" value="auto"> Puntata Auto
+                    </label>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="startBtn" class="btn btn-go">GO</button>
+                    <button id="stopBtn" class="btn btn-stop" disabled>STOP</button>
+                </div>
+            </div>
+            
+            <!-- Footer con pulsante Logout -->
+            <button id="logoutBtn" class="logout-btn">
+                <span>🚪</span> Logout
+            </button>
+        </div>
+        
+        <!-- Dialog FAQ -->
+        <div id="faqDialog" class="dialog-overlay">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2>FAQ & Privacy</h2>
+                    <button class="close-dialog">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <div class="faq-section">
+                        <h3>Come funziona?</h3>
+                        <p>Il bot effettua puntate automatiche quando il timer raggiunge il valore impostato.</p>
+                        
+                        <h3>Puntata Manuale vs Auto</h3>
+                        <p><strong>Manuale:</strong> Effettua una singola puntata al momento del trigger.</p>
+                        <p><strong>Auto:</strong> Imposta un autobid che punta automaticamente fino a esaurimento puntate.</p>
+                        
+                        <h3>💰 Range Prezzo</h3>
+                        <p>Imposta un prezzo minimo e massimo. Il bot piazzerà la puntata SOLO se il prezzo corrente è nel range specificato. Lascia 0 per disabilitare il limite.</p>
+                        
+                        <h3>Privacy</h3>
+                        <p>I dati di login vengono utilizzati esclusivamente per comunicare con l'API di Bidoo e non vengono memorizzati.</p>
+                        
+                        <h3>Supporto</h3>
+                        <p><strong>Ricordati che tale bot e gratuito per tutti. L'autore non chiede alcun pagamento ne abbonamento per uso.</p>
+						<p>Per supporto scrivici su https://t.me/puffpuffpuf P.S. provaci anche app android surl.li/pleehl È sempre gratis</p>
+                    </div>
+                </div>
+                <button class="btn btn-secondary close-faq">Chiudi</button>
+            </div>
+        </div>
+
+        <!-- DIALOG LOGOUT STILIZZATO (NUOVO) -->
+        <div id="logoutDialog" class="logout-dialog-overlay">
+            <div class="logout-dialog">
+                <div class="logout-dialog-icon">🚪</div>
+                <h3>Esci dall'app?</h3>
+                <p>Sei sicuro di voler uscire da Dudu2idoo?</p>
+                <div class="logout-dialog-buttons">
+                    <button class="logout-cancel" id="logoutCancelBtn">Annulla</button>
+                    <button class="logout-confirm" id="logoutConfirmBtn">Esci</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="renderer.js"></script>
+</body>
+</html>

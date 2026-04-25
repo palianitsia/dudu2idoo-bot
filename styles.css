@@ -1,0 +1,710 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #050505;
+    overflow: hidden;
+    user-select: none;
+}
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    background: #050505;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scrollbar personalizzata */
+.app-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.app-container::-webkit-scrollbar-track {
+    background: #1A1A1A;
+}
+
+.app-container::-webkit-scrollbar-thumb {
+    background: #CC8B35;
+    border-radius: 2px;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    padding: 50px 16px 16px;
+    min-height: 100vh;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Login Screen */
+.login-card {
+    background: #0D0D0D;
+    border-radius: 20px;
+    padding: 32px 20px;
+    margin-bottom: 32px;
+}
+
+.logo h1 {
+    color: #CC8B35;
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.logo p {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.domain-selector {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.radio-label {
+    color: #F5F5F5;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radio-label input {
+    cursor: pointer;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 14px 16px;
+    background: #1A1A1A;
+    border: 1px solid #333;
+    border-radius: 12px;
+    color: #F5F5F5;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #CC8B35;
+}
+
+.btn {
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #CC8B35;
+    color: #050505;
+    padding: 14px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background: #B87A2E;
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-large {
+    padding: 16px;
+    font-size: 18px;
+}
+
+.status-message {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #FF4444;
+}
+
+.faq-btn {
+    background: transparent;
+    border: none;
+    color: #CC8B35;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+}
+
+/* Main Screen */
+.user-card {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.username {
+    color: #FFC877;
+    font-size: 22px;
+    font-weight: 800;
+    display: block;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    color: #FFC877;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.product-card {
+    background: #0D0D0D;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.product-image {
+    height: 180px;
+    background: #1A1A1A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-placeholder {
+    font-size: 48px;
+    color: #888;
+}
+
+.product-name {
+    padding: 16px;
+    text-align: center;
+    color: #F5F5F5;
+    font-weight: 600;
+    font-size: 16px;
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.history-card {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.history-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    color: #888;
+    font-size: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 12px;
+}
+
+.history-header span:first-child { text-align: left; }
+.history-header span:nth-child(2) { text-align: center; }
+.history-header span:nth-child(3) { text-align: center; }
+.history-header span:last-child { text-align: right; }
+
+.history-list {
+    min-height: 100px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.history-empty {
+    text-align: center;
+    color: #666;
+    padding: 32px;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #2A2A2A;
+}
+
+.history-item span:first-child { text-align: left; }
+.history-item span:nth-child(2) { text-align: center; }
+.history-item span:nth-child(3) { text-align: center; }
+.history-item span:last-child { text-align: right; }
+
+.history-price { color: #F5F5F5; }
+.history-modalita { font-weight: 500; }
+.history-orario { color: #888; }
+.history-utente { color: #FFC877; }
+
+.modalita-manuale { color: #FFC877; }
+.modalita-auto { color: #00C853; }
+.modalita-killer { color: #FF851B; }
+.modalita-shock { color: #FF4444; }
+.modalita-auto-scudo { color: #346BF8; }
+
+.timer-card {
+    background: #0D0D0D;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+#timerCanvas {
+    width: 150px;
+    height: 150px;
+}
+
+.timer-status {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.timer-status.terminata { color: #FF4444; }
+.timer-status.pausa { color: #FF8800; }
+
+.timer-value {
+    display: none;
+}
+
+.controls-card {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.slider-container input {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #333;
+    -webkit-appearance: none;
+}
+
+.slider-container input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #CC8B35;
+    cursor: pointer;
+}
+
+.slider-label-left, .slider-label-right {
+    color: #888;
+    font-size: 18px;
+}
+
+.slider-value-display {
+    text-align: center;
+    color: #F5F5F5;
+    margin-bottom: 20px;
+}
+
+.slider-value-display span {
+    color: #CC8B35;
+    font-weight: bold;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 20px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+.btn-go {
+    background: #CC8B35;
+    color: #050505;
+    padding: 16px 40px;
+    font-size: 24px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.btn-go:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-stop {
+    background: #992222;
+    color: #F5F5F5;
+    padding: 16px 40px;
+    font-size: 24px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.btn-stop:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* PULSANTE LOGOUT */
+.logout-btn {
+    background: transparent;
+    border: 1px solid #CC8B35;
+    color: #CC8B35;
+    padding: 12px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.logout-btn:hover {
+    background: rgba(204, 139, 53, 0.1);
+}
+
+/* Dialog FAQ */
+.dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-overlay.active {
+    display: flex;
+}
+
+.dialog-content {
+    background: #0D0D0D;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 350px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.dialog-header h2 {
+    color: #CC8B35;
+    font-size: 20px;
+}
+
+.close-dialog {
+    background: none;
+    border: none;
+    color: #F5F5F5;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.dialog-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.faq-section h3 {
+    color: #CC8B35;
+    font-size: 16px;
+    margin: 16px 0 8px;
+}
+
+.faq-section p {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.btn-secondary {
+    background: #333;
+    color: #F5F5F5;
+    padding: 12px;
+    margin: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* ========== AGGIUNTE NUOVE (senza rompere nulla) ========== */
+
+/* Area trascinabile solo in alto (38px) - NON blocca lo scroll */
+.drag-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    -webkit-app-region: drag;
+    app-region: drag;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+/* Pulsanti finestra in alto a destra */
+.window-controls-top {
+    position: fixed;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10000;
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+}
+
+.win-top-btn {
+    background: rgba(26, 26, 26, 0.9);
+    border: 1px solid #444;
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+}
+
+.win-top-btn:hover {
+    background: #CC8B35;
+    border-color: #CC8B35;
+    color: #050505;
+}
+
+.win-top-btn:active {
+    transform: scale(0.95);
+}
+
+/* Range Prezzo */
+.price-range-container {
+    background: #0D0D0D;
+    border-radius: 16px;
+    padding: 12px;
+    margin: 16px 0;
+    border: 1px solid #333;
+}
+
+.range-row {
+    display: flex;
+    gap: 12px;
+}
+
+.range-field {
+    flex: 1;
+}
+
+.range-field label {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.range-input {
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px !important;
+    padding: 10px !important;
+}
+
+.range-hint {
+    text-align: center;
+    font-size: 10px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* Dialog Logout stilizzato */
+.logout-dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 20000;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-dialog-overlay.active {
+    display: flex;
+}
+
+.logout-dialog {
+    background: #0D0D0D;
+    border-radius: 28px;
+    width: 300px;
+    max-width: 85%;
+    text-align: center;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+    animation: dialogPop 0.2s ease-out;
+}
+
+@keyframes dialogPop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.logout-dialog-icon {
+    font-size: 56px;
+    margin-top: 28px;
+    margin-bottom: 16px;
+}
+
+.logout-dialog h3 {
+    color: #F5F5F5;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.logout-dialog p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 28px;
+    padding: 0 20px;
+}
+
+.logout-dialog-buttons {
+    display: flex;
+    border-top: 1px solid #1a1a1a;
+}
+
+.logout-dialog-buttons button {
+    flex: 1;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-cancel {
+    background: #1A1A1A;
+    color: #888;
+    border-right: 1px solid #1a1a1a;
+}
+
+.logout-cancel:hover {
+    background: #2a2a2a;
+    color: #F5F5F5;
+}
+
+.logout-confirm {
+    background: #CC8B35;
+    color: #050505;
+}
+
+.logout-confirm:hover {
+    background: #B87A2E;
+}
